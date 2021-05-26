@@ -4,6 +4,7 @@ import 'package:flutter_webview/example4_download_urls.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 import 'example5_popup_windows.dart';
+import 'example8_custom_context_menus.dart';
 
 class Example2 extends StatefulWidget {
   @override
@@ -79,24 +80,35 @@ class _MyAppState extends State<Example2> {
             children: [
               MaterialButton(
                 onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => WebRTC()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => WebRTC()));
                 },
                 child: Text("WebRTC"),
               ),
               MaterialButton(
                 onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Example4()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Example4()));
                 },
                 child: Text("download"),
               ),
               MaterialButton(
                 onPressed: () {
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => InAppWebViewExample5()));
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => InAppWebViewExample5()));
                 },
                 child: Text("popup"),
+              ),
+              MaterialButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CustomContentExample()));
+                },
+                child: Text("menu"),
               )
             ],
           )
