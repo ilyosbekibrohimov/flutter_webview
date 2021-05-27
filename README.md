@@ -1,4 +1,4 @@
-8 examples for using for using WebView in Flutter:
+8 examples for using WebView in Flutter:
 1.Basics;
 2.Javascript Handler;
 3.Web RTC;
