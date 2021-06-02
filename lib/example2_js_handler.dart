@@ -33,18 +33,35 @@ class _MyAppState extends State<Example2> {
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     </head>
     <body>
-        <h1>JavaScript Handlers (Channels) TEST</h1>
+    
+    
+ 
+        <h1 onclick="myFunction()">JavaScript Handlers (Channels) TEST</h1>
         <script>
-            window.addEventListener("flutterInAppWebViewPlatformReady", function(event) {
-                window.flutter_inappwebview.callHandler('handlerFoo')
-                  .then(function(result) {
-                    // print to the console the data coming
-                    // from the Flutter side.
-                    console.log(JSON.stringify(result));
-
-                    window.flutter_inappwebview.callHandler('handlerFooWithArgs', 1, true, ['bar', 5], {foo: 'baz'}, result);
-                });
-            });
+        
+         var isFlutterInAppWebViewReady = false;
+           window.addEventListener("flutterInAppWebViewPlatformReady", function(event) {
+            isFlutterInAppWebViewReady = true;
+               });
+               
+               
+           function myFunction(){
+         
+         
+             if(isFlutterInAppWebViewReady){
+               const args = [1, true, ['bar', 5], {foo: 'baz'}];
+ window.flutter_inappwebview.callHandler('handlerFoo', ...args);
+             }
+               
+               
+          
+           
+          
+    
+          }
+           
+            
+            
         </script>
     </body>
 </html>
@@ -56,18 +73,25 @@ class _MyAppState extends State<Example2> {
               onWebViewCreated: (InAppWebViewController controller) {
                 _webViewController = controller;
 
-                _webViewController.addJavaScriptHandler(
-                    handlerName: 'handlerFoo',
-                    callback: (args) {
-                      // return data to JavaScript side!
-                      return {'bar': 'bar_value', 'baz': 'baz_value'};
-                    });
-                _webViewController.addJavaScriptHandler(
-                    handlerName: 'handlerFooWithArgs',
-                    callback: (args) {
-                      print(args);
-                      // it will print: [1, true, [bar, 5], {foo: baz}, {bar: bar_value, baz: baz_value}]
-                    });
+
+
+              },
+              onLoadStop: (InAppWebViewController controller, Uri uri) {
+                 _webViewController = controller;
+                 _webViewController.addJavaScriptHandler(
+                     handlerName: 'handlerFoo',
+                     callback: (args) {
+                       // return data to JavaScript side!
+                       test();
+                       return {'bar': 'bar_value', 'baz': 'baz_value'};
+                     });
+                 _webViewController.addJavaScriptHandler(
+                     handlerName: 'handlerFooWithArgs',
+                     callback: (args) {
+                       print(args);
+                       // it will print: [1, true, [bar, 5], {foo: baz}, {bar: bar_value, baz: baz_value}]
+                     });
+
               },
               onConsoleMessage: (controller, consoleMessage) {
                 print(consoleMessage);
@@ -116,4 +140,9 @@ class _MyAppState extends State<Example2> {
       ),
     );
   }
+
+  void test() {
+    print("Ilyosbek");
+  }
+
 }
